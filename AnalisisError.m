@@ -45,7 +45,7 @@ indGamma_D2  = 7;
 
 Time.MicroTdepend = 1;
 
-for pqr = 7:10
+for pqr = 6:10
     
     file1 = nombres{pqr};
     indGamma_N1  = NaN;
@@ -70,7 +70,9 @@ for pqr = 7:10
     Tabla(pqr,2) = Macro_geo.size;
     Tabla(pqr,3) = Time.dt;
     
-    Tabla(pqr,4) = sqrt(Time.dt*sum(Error_p./Error_ref))
+    TablaError{pqr,1} = Error_p;
+    TablaError{pqr,2} = Error_ref;
+    Tabla(pqr,4) = sqrt(Time.dt*sum(Error_p./Error_ref));
     
     aaasav = sprintf('Solution_tot%i.mat',pqr);
     save(aaasav)
@@ -79,23 +81,23 @@ end
 
 %% Convergence Report
 
-Tabla2 = sortrows(Tabla,1);
-Tabla2 = Tabla2(Tabla2(:,3)>0,:);
-
-figure('name','L2 Convergence')
-hold on
-
-axx = log(1./(Tabla2(:,2)+Tabla2(:,3)));
-plot(axx,...
-    log(Tabla2(:,4)),'s--','linewidth',1.5)
-% REFERENCE
-plot(axx, -1*axx-.55*min(abs(axx)),'linewidth',1.5)
-% plot(log(1./Tabla2(:,2)), -2*log(1./Tabla2(:,2))-.1*min(abs(log(Tabla2(:,3)))),'linewidth',1.5)
-
-xlabel('Log(1/h)','FontSize',12,'FontWeight','bold')
-ylabel('log(Error)','FontSize',12,'FontWeight','bold')
-xtickformat('%.1f')
-ytickformat('%.1f')
-grid on
-xlim([min(axx)-0.05,max(axx)+0.05])
+% Tabla2 = sortrows(Tabla,1);
+% Tabla2 = Tabla2(Tabla2(:,3)>0,:);
+% 
+% figure('name','L2 Convergence')
+% hold on
+% 
+% axx = log(1./(Tabla2(:,2)+Tabla2(:,3)));
+% plot(axx,...
+%     log(Tabla2(:,4)),'s--','linewidth',1.5)
+% % REFERENCE
+% plot(axx, -1*axx-.55*min(abs(axx)),'linewidth',1.5)
+% % plot(log(1./Tabla2(:,2)), -2*log(1./Tabla2(:,2))-.1*min(abs(log(Tabla2(:,3)))),'linewidth',1.5)
+% 
+% xlabel('Log(1/h)','FontSize',12,'FontWeight','bold')
+% ylabel('log(Error)','FontSize',12,'FontWeight','bold')
+% xtickformat('%.1f')
+% ytickformat('%.1f')
+% grid on
+% xlim([min(axx)-0.05,max(axx)+0.05])
 
