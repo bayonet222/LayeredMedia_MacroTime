@@ -40,7 +40,7 @@ global Adepend
 %*                                                                   *
 %*********************************************************************
 % addpath([cd,'\Inputs'])
-addpath([cd,'\Solver'])
+% addpath([cd,'\Solver'])
 
 % Solution structure
 Macro_Sol = struct();

@@ -28,9 +28,16 @@ clc
 %
 global Adepend MicroConst Time
 
-addpath([cd,'\Mesh'])
+% addpath([cd,'\Mesh'])
+% 
+% meshfolder  = '\Mesh\UnitSquare\';
 
-meshfolder  = '\Mesh\UnitSquare\';
+addpath([cd,'/Mesh'])
+addpath([cd,'/PrePost_process'])
+addpath([cd,'/Inputs'])
+addpath([cd,'/Solver'])
+
+meshfolder  = '/Mesh/UnitSquare/';
 nombres     = get_list_files([cd,meshfolder],'');
 nombres2 = nombres;
 

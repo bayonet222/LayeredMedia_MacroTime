@@ -66,8 +66,6 @@ global  MicroConst
 % --------------------------------------------------------------------
 
 % Files to pre - process (read Mesh, create mesh object and auxiliars)
-addpath([cd,'\PrePost_process'])
-addpath([cd,'\Inputs'])
 
 % Micro_coordinate : Coordinates of each mesh point
 % Micro_element       : Mesh conectivity
