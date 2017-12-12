@@ -35,7 +35,7 @@
 % clc
 
 
-global  MicroConst
+% global  MicroConst
 % Adepend -> Dependency of the tensor A
 % Adepend = Micro : A(X,Y) = A(.,Y) (Micro dependency)
 % Adepend = Macro : A(X,Y) = A(X,Y) (Macro-Micro dependency)
@@ -70,9 +70,20 @@ global  MicroConst
 % Micro_coordinate : Coordinates of each mesh point
 % Micro_element       : Mesh conectivity
 
-global xi Macro_geo Micro_geo
+% global xi Macro_geo Micro_geo
 % xi         : HDG Parameter
+function [Micro_geo,Macro_geo] = preUpscaling_HDG(file1,file2)
 
+meshfolder  = '/Mesh/UnitSquare/';
+nombres     = get_list_files([cd,meshfolder],'');
+% nombres2 = nombres;
+% Adepend    = 'Macro';
+MicroConst = 'Periodic';
+indGamma_N2  = NaN;
+indGamma_D2  = 7;
+indGamma_N1  = NaN;
+    indGamma_D1  = 7;
+    
 Macro_geo = struct();
 Micro_geo = struct();
 

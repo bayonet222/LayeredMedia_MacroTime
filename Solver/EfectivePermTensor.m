@@ -13,9 +13,9 @@
 %***------------------------------------
 % Manuela Bastidas - 2017.
 
-function [A_Efective] = EfectivePermTensor(MacroP,Micro_Sol,tt)
+function [A_Efective] = EfectivePermTensor(MacroP,Micro_Sol,tt,Micro_geo)
 
-global Micro_geo 
+% global Micro_geo 
 
 Vel1 = Micro_Sol.Vel1;
 Vel2 = Micro_Sol.Vel2;

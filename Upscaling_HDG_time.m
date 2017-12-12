@@ -30,7 +30,7 @@
 % Preprocess time start
 % tic;
 
-global Adepend 
+function [Macro_Sol, Errorinfo] = Upscaling_HDG_time(Adepend,Time,Macro_geo,Micro_geo) 
 
 
 %%
@@ -50,7 +50,7 @@ Macro_Sol.(field).Vel  = [];
 Macro_Sol.(field).A_Efective  = 0;
 
 % Auxiliar matrices _ independent of time
-[Macro_Aux] = Macro_0time_mat;
+[Macro_Aux] = Macro_0time_mat(Macro_geo);
 
 if Time.MicroTdepend == 0
     [Micro_Sol] =  Micro_SolucionHDGP1P0([0,0],0);
@@ -74,7 +74,7 @@ for t_pos = 2:Time.tnSteps
             
             [Macro_Sol.(field)] =  Macro_SolucionHDGP1P1...
                 (Pre_ant,Macro_Aux,0,...
-                Pre_Aefect,t_pos);
+                Pre_Aefect,t_pos,Macro_geo,Adepend,Time,Micro_geo);
             
         case 'Micro'
             
@@ -88,7 +88,7 @@ for t_pos = 2:Time.tnSteps
             field = sprintf('time%i',t_pos-1);
             
             [Macro_Sol.(field)] =  Macro_SolucionHDGP1P1...
-                (Pre_ant,Macro_Aux,A_Efective,0,t_pos);
+                (Pre_ant,Macro_Aux,A_Efective,0,t_pos,Macro_geo,Adepend,Time,Micro_geo);
             
             %             % Post Process Micro cell problem
             %             [Micro_Sol.Pres1_cont,...
@@ -127,19 +127,21 @@ for t_pos = 2:Time.tnSteps
         (t_pos,zeros(size(Macro_Sol.(field).Pres,1),1),...
         Macro_solution,Macro_geo);
     % Relative error
-    L2MacroError_rel(t_pos-1) = sqrt(Error_p(t_pos-1))/sqrt(Error_ref(t_pos-1));
+%     L2MacroError_rel(t_pos-1) = sqrt(Error_p(t_pos-1))/sqrt(Error_ref(t_pos-1));
     
     Error_dp(t_pos-1)    = errorH1P1P1(t_pos,Macro_Sol.(field).Vel,...
         Macro_solution_x,Macro_solution_y,Macro_geo);
     Error_dref(t_pos-1)  = errorH1P1P1(t_pos,zeros(size(Macro_Sol.(field).Vel,1),1),...
         Macro_solution_x,Macro_solution_y,Macro_geo);
     % Relative error
-    H1MacroError_rel(t_pos-1) = sqrt(Error_p(t_pos-1)+Error_dp(t_pos-1))/...
+%     H1MacroError_rel(t_pos-1) = sqrt(Error_p(t_pos-1)+Error_dp(t_pos-1))/...
         sqrt(Error_ref(t_pos-1)+Error_dref(t_pos-1));
     
 %     aaasav = sprintf('Solut_time%i.mat',t_pos);
 %     save(aaasav)
 end
+
+Errorinfo = {Error_p,Error_ref,Error_dp,Error_dref};
 %% GRAPHICS
 % addpath([cd,'\Graphics'])
 % %

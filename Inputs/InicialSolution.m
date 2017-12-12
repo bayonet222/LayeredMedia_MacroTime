@@ -9,9 +9,9 @@
 %***------------------------------------  
 % Manuela Bastidas  - 2017. 
 
-function [sol] = InicialSolution
+function [sol] = InicialSolution(Macro_geo)
 
-global Macro_geo 
+% global Macro_geo 
 nElement   = Macro_geo.nElement;
 element    = Macro_geo.element;
 coordinate = Macro_geo.coordinate;

@@ -26,8 +26,7 @@ clc
 
 %% Set of meshes
 %
-% global Adepend MicroConst
-% global xi Macro_geo Micro_geo
+global Adepend MicroConst
 
 % addpath([cd,'\Mesh'])
 % 
@@ -51,6 +50,8 @@ MicroConst = 'Periodic';
 indGamma_N2  = NaN;
 indGamma_D2  = 7;
 
+Time.MicroTdepend = 1;
+
 parfor pqr = 6:10
     
     file1 = nombres{pqr};
@@ -60,23 +61,24 @@ parfor pqr = 6:10
     fprintf('\n --------------------- \n')
     disp(file1)
     
-    [Micro_geo,Macro_geo] = preUpscaling_HDG(file1,file2)
+    % MESH PROCESS
+    preUpscaling_HDG
     
     % TIME DEPENDENCY
-    Time = struct();
-    Time.MicroTdepend = 1;
     Time.tnSteps      = ceil(1/Macro_geo.size);
     Time.dt           = 1/Time.tnSteps;
     Time.time_vec     = 0:Time.dt:1;
-    Time.Inicial      = InicialSolution(Macro_geo);
+    Time.Inicial      = InicialSolution;
     
     %% Error process
-    [Macro_Sol, Errorinfo] = Upscaling_HDG_time(Adepend,...
-        Time,Macro_geo,Micro_geo)
+    Upscaling_HDG_time
     
-    Solution{pqr} = Macro_Sol;
-    ErrorSol{pqr} = Errorinfo;
+    Tabla= [Macro_geo.nElement; Macro_geo.size; Time.dt;sqrt(Time.dt*sum(Error_p./Error_ref))];
+    TablaError = [Error_p;Error_ref];
     
+    Tabla(pqr,:) = Tabla';
+    aaasav = sprintf('Solution_tot%i.mat',pqr);
+    save(aaasav)
 end
 
 

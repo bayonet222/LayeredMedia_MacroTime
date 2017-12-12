@@ -21,16 +21,16 @@
 % Manuela Bastidas - 2017.
 
 function [matA_localsolver,A_Efective] = Macro_matA_localsolver2(Wx_macro,Wy_macro,...
-    test,ind,MacroP,tt)
+    test,ind,MacroP,tt,Micro_geo)
 
 
 % X_macro = X_macro(:);
 % Y_macro = Y_macro(:);
 nn = size(test,2);
 
-[Micro_Sol] = Micro_SolucionHDGP1P0(MacroP,tt);
+[Micro_Sol] = Micro_SolucionHDGP1P0(MacroP,tt,Micro_geo);
    
-[A_Efective] = EfectivePermTensor(MacroP,Micro_Sol,tt);
+[A_Efective] = EfectivePermTensor(MacroP,Micro_Sol,tt,Micro_geo);
 inv_AEfective_mean = inv(A_Efective);
 
 % A_Efective = repmat(A_Efective_mean,1,1,nn);

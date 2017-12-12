@@ -13,9 +13,10 @@
 %***------------------------------------
 % Manuela Bastidas - 2017.
 
-function [Micro_Sol] = Micro_SolucionHDGP1P0(Punto_X,tt)
+function [Micro_Sol] = Micro_SolucionHDGP1P0(Punto_X,tt,Micro_geo)
 
-global xi Micro_geo
+xi=1;
+MicroConst = 'Periodic';
 
 element      = Micro_geo.element;
 coordinate   = Micro_geo.coordinate;
@@ -223,7 +224,8 @@ end
 %*                                                                   *
 %*********************************************************************
 
-[SolFlujo1,SolFlujo2] = Micro_Boundary1(posFlujo,edgesKnum,H,-K1,-K2);
+[SolFlujo1,SolFlujo2] = Micro_Boundary1(posFlujo,...
+    edgesKnum,H,-K1,-K2,Micro_geo,MicroConst);
 
 %%
 %*********************************************************************

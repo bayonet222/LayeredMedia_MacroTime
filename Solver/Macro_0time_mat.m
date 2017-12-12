@@ -14,9 +14,9 @@
 % Manuela Bastidas - 2017.
 
 
-function [Macro_0time_matAux] = Macro_0time_mat
+function [Macro_0time_matAux] = Macro_0time_mat(Macro_geo)
 
-global  Macro_geo xi
+ xi = 1;
 
 element        = Macro_geo.element;
 coordinate     = Macro_geo.coordinate;

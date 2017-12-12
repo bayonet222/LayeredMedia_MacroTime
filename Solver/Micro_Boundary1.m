@@ -22,9 +22,10 @@
 %***------------------------------------
 % Manuela Bastidas - 2017.
 
-function [SolFlujo1,SolFlujo2] = Micro_Boundary1(posFlujo,edgesKnum,H,J1,J2)
+function [SolFlujo1,SolFlujo2] = Micro_Boundary1(posFlujo,...
+    edgesKnum,H,J1,J2,Micro_geo,MicroConst)
 
-global Micro_geo MicroConst
+% global 
 
 nEdgeDir       = Micro_geo.nEdgeDir;
 DirichletEdges = Micro_geo.DirichletEdges;

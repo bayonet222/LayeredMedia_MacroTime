@@ -19,10 +19,10 @@
 
 
 function [Macro_tSol] = Macro_SolucionHDGP1P1(Pre_ant,matAux,A_Efective,...
-    Pre_Aefect,t_pos)
+    Pre_Aefect,t_pos,Macro_geo,Adepend,Time,Micro_geo)
 
-global  Macro_geo  xi Adepend Time
-
+% global  Macro_geo  xi Adepend Time
+ xi = 1;
 element        = Macro_geo.element;
 coordinate     = Macro_geo.coordinate;
 
@@ -143,7 +143,7 @@ for elemento = 1:nElement
             
             MacroP = sum(coordinate(element(elemento,:),:))/3;
             [A{elemento,1},A_Efective_mean]= Macro_matA_localsolver2(Wx,Wy,...
-                test,1,MacroP,tt);
+                test,1,MacroP,tt,Micro_geo);
             
             Macro_tSol.A_Efective(:,:,elemento)= A_Efective_mean;
             
