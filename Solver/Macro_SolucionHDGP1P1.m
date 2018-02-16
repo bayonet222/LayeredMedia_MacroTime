@@ -138,8 +138,8 @@ for elemento = 1:nElement
         
         if Time.MicroTdepend == 1 || t_pos == 2 %first time step
 
-            fprintf('\n Time %i/%i - Element %i/%i \n',...
-                t_pos,Time.tnSteps,elemento,nElement)
+%             fprintf('\n Time %i/%i - Element %i/%i \n',...
+%                 t_pos,Time.tnSteps,elemento,nElement)
             
             MacroP = sum(coordinate(element(elemento,:),:))/3;
             [A{elemento,1},A_Efective_mean]= Macro_matA_localsolver2(Wx,Wy,...

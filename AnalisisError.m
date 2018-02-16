@@ -21,7 +21,7 @@
 %***------------------------------------
 % Manuela Bastidas  - 2017.
 close all
-clear
+% clear
 clc
 
 %% Set of meshes
@@ -51,7 +51,10 @@ MicroConst = 'Periodic';
 indGamma_N2  = NaN;
 indGamma_D2  = 7;
 
-parfor pqr = 6:10
+Solution = cell(4,1);
+ErrorSol = cell(4,1);
+
+for pqr = 6:10
     
     file1 = nombres{pqr};
     indGamma_N1  = NaN;
@@ -60,7 +63,7 @@ parfor pqr = 6:10
     fprintf('\n --------------------- \n')
     disp(file1)
     
-    [Micro_geo,Macro_geo] = preUpscaling_HDG(file1,file2)
+    [Micro_geo,Macro_geo] = preUpscaling_HDG(file1,file2);
     
     % TIME DEPENDENCY
     Time = struct();
@@ -72,11 +75,13 @@ parfor pqr = 6:10
     
     %% Error process
     [Macro_Sol, Errorinfo] = Upscaling_HDG_time(Adepend,...
-        Time,Macro_geo,Micro_geo)
+        Time,Macro_geo,Micro_geo);
     
     Solution{pqr} = Macro_Sol;
     ErrorSol{pqr} = Errorinfo;
     
+    aaa = sprintf('sol_%i.mat',pqr);
+    save(aaa) 
 end
 
 

@@ -61,6 +61,11 @@ end
 [Macro_solution,Macro_solution_x,Macro_solution_y,...
     ~, ~, ~,~, ~, ~] = solucionExacta;
 
+Error_p = zeros(Time.tnSteps,1);
+Error_ref = zeros(Time.tnSteps,1);
+Error_dp = zeros(Time.tnSteps,1);
+Error_dref = zeros(Time.tnSteps,1);
+
 % field     = sprintf('time%i',1);
 for t_pos = 2:Time.tnSteps
     
@@ -119,23 +124,23 @@ for t_pos = 2:Time.tnSteps
         (Macro_geo,Macro_Sol.(field).Pres,Macro_Sol.(field).Vel,1);
     
     % Pressure error
-    Error_p(t_pos-1)   = errorL2_Macro...
+    Error_p(t_pos)   = errorL2_Macro...
         (t_pos,Macro_Sol.(field).Pres,...
         Macro_solution,Macro_geo);
     % Reference norm
-    Error_ref(t_pos-1) = errorL2_Macro...
+    Error_ref(t_pos) = errorL2_Macro...
         (t_pos,zeros(size(Macro_Sol.(field).Pres,1),1),...
         Macro_solution,Macro_geo);
     % Relative error
 %     L2MacroError_rel(t_pos-1) = sqrt(Error_p(t_pos-1))/sqrt(Error_ref(t_pos-1));
     
-    Error_dp(t_pos-1)    = errorH1P1P1(t_pos,Macro_Sol.(field).Vel,...
+    Error_dp(t_pos)    = errorH1P1P1(t_pos,Macro_Sol.(field).Vel,...
         Macro_solution_x,Macro_solution_y,Macro_geo);
-    Error_dref(t_pos-1)  = errorH1P1P1(t_pos,zeros(size(Macro_Sol.(field).Vel,1),1),...
+    Error_dref(t_pos)  = errorH1P1P1(t_pos,zeros(size(Macro_Sol.(field).Vel,1),1),...
         Macro_solution_x,Macro_solution_y,Macro_geo);
     % Relative error
 %     H1MacroError_rel(t_pos-1) = sqrt(Error_p(t_pos-1)+Error_dp(t_pos-1))/...
-        sqrt(Error_ref(t_pos-1)+Error_dref(t_pos-1));
+%         sqrt(Error_ref(t_pos-1)+Error_dref(t_pos-1));
     
 %     aaasav = sprintf('Solut_time%i.mat',t_pos);
 %     save(aaasav)

@@ -13,7 +13,7 @@
 %***------------------------------------  
 % Manuela Bastidas - 2017. 
 
-function volumeforce = f(xx,yy,tt)
+function volumeforce = f(xx,yy,t)
 % xx = x(1);
 % yy = x(2);
 
@@ -24,4 +24,4 @@ c1 = (1/sqrt(3)+1/2)*((pi.^2)/term);
 c2 = (2*pi*xx)./(sqrt(3)*term.^2);
 volumeforce = c1.*sin(pi*xx).*sin(pi*yy)+...
     c2.*sin(pi*yy).*cos(pi*xx);
-% volumeforce = exp(-2*tt).*volumeforce;
+volumeforce = exp(t)*sin(pi*xx)*sin(pi*yy)+volumeforce;
